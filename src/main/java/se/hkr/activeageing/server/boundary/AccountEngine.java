@@ -89,25 +89,22 @@ public class AccountEngine extends AbstractEngine<Accounts> {
         boolean result = false;
         try {
             Accounts account = super.find(id);
-            if(account != null) {
-                if(!accountEditViewModel.getRole().equals(Accounts.AccountRole.NOTSET)) {
-                    account.setRole(accountEditViewModel.getRole());
-                }
-                account.setUpdated(new Timestamp((new Date()).getTime()));
-                account.setFirstName(accountEditViewModel.getFirstName());
-                account.setLastName(accountEditViewModel.getLastName());
-                if(accountEditViewModel.getEmail() != null && accountEditViewModel.getEmail().length() > 0) {
-                    account.setEmail(accountEditViewModel.getEmail());
-                }
-                account.setPhoneNumber(accountEditViewModel.getPhoneNumber());
-                account.setStreetName(accountEditViewModel.getStreetName());
-                account.setStreetNumber(accountEditViewModel.getStreetNumber());
-                account.setCity(accountEditViewModel.getCity());
-                account.setTags(accountEditViewModel.getTags());
-
-                super.edit(account);
-                result = true;
+            if(!accountEditViewModel.getRole().equals(Accounts.AccountRole.NOTSET)) {
+                account.setRole(accountEditViewModel.getRole());
             }
+            account.setUpdated(new Timestamp((new Date()).getTime()));
+            account.setFirstName(accountEditViewModel.getFirstName());
+            account.setLastName(accountEditViewModel.getLastName());
+            if(accountEditViewModel.getEmail() != null && accountEditViewModel.getEmail().length() > 0) {
+                account.setEmail(accountEditViewModel.getEmail());
+            }
+            account.setPhoneNumber(accountEditViewModel.getPhoneNumber());
+            account.setStreetName(accountEditViewModel.getStreetName());
+            account.setStreetNumber(accountEditViewModel.getStreetNumber());
+            account.setCity(accountEditViewModel.getCity());
+            account.setTags(accountEditViewModel.getTags());
+
+            super.edit(account);
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }

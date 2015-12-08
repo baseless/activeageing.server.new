@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author base
+ * @author dANIEL ryHLE
  */
 public abstract class AbstractEngine<T> {
 

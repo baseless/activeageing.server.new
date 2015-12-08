@@ -5,6 +5,8 @@ import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.entities.Accounts;
 import se.hkr.activeageing.server.entities.Orders;
 import se.hkr.activeageing.server.viewmodels.OrderViewModel;
+
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +19,7 @@ import java.util.Optional;
  * Order engine
  * Created by Daniel Ryhle on 2015-11-10.
  */
+@Stateless
 public class OrderEngine extends AbstractEngine<Orders> {
 
     @PersistenceContext(unitName = "DefaultJtaUnit")

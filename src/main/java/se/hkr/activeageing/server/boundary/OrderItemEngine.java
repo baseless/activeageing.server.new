@@ -8,6 +8,7 @@ import se.hkr.activeageing.server.entities.Orders;
 import se.hkr.activeageing.server.entities.Products;
 import se.hkr.activeageing.server.viewmodels.OrderItemViewModel;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ import java.util.Optional;
  * OrderItem engine class
  * Created by Daniel Ryhle on 2015-11-11.
  */
+@Stateless
 public class OrderItemEngine extends AbstractEngine<Orderitems> {
 
     @PersistenceContext(unitName = "DefaultJtaUnit")

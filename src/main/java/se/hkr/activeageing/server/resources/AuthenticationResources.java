@@ -11,6 +11,7 @@ import se.hkr.activeageing.server.core.utility.ResponseHelper;
 import se.hkr.activeageing.server.viewmodels.AccountAuthenticateViewModel;
 import se.hkr.activeageing.server.viewmodels.AuthenticationResponseViewModel;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,6 +25,7 @@ import java.util.Optional;
  */
 
 @Path("authentication")
+@Stateless
 @Api(value = "Authentication")
 public class AuthenticationResources {
 

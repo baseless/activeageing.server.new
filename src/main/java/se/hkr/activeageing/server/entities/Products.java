@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p"),
     @NamedQuery(name = "Products.findById", query = "SELECT p FROM Products p WHERE p.id = :id"),
+    @NamedQuery(name = "Products.findByIdAndManufacturer", query = "SELECT p FROM Products p WHERE p.id = :id AND p.manufacturersId = :manufacturer"),
     @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name"),
     @NamedQuery(name = "Products.findByUpdated", query = "SELECT p FROM Products p WHERE p.updated = :updated"),
     @NamedQuery(name = "Products.findByCreated", query = "SELECT p FROM Products p WHERE p.created = :created"),
