@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
+import java.net.URI;
 import java.util.*;
 
 /**
@@ -31,17 +32,41 @@ public class AuthorizationFilter implements ContainerRequestFilter {
     @Context
     private HttpServletRequest servletRequest;
 
+    private static String USER = "aa";
+    private static String PSWD = "abc123";
+    private static String SENSOR_USER = "tsi!push";
+    private static String SENSOR_PSWD = "zaerohjuyo4AiBeesh2eemu8ohyeet5e";
+
     @Override
     public void filter(ContainerRequestContext context) throws IOException {
         MultivaluedMap<String, String> headers = context.getHeaders();
         UriInfo uri = context.getUriInfo();
-        logger.debug("New request -> clientAddress:'" + servletRequest.getRemoteAddr() + "', urlRequested:' " +  uri.getAbsolutePath() + "'");
         Map.Entry<String, String> auth = getUserNameAndPassword(headers);
-        if(auth != null) {
-            logger.debug("Basic authentication included, username:'" + auth.getKey() + "', password:'" + auth.getValue() + "'");
+        logger.debug("clientAddress:'" + servletRequest.getRemoteAddr() + "', urlRequested:' " +  uri.getAbsolutePath() + " [" + uri.getPath() +  "]', username + '" + auth.getKey() + "', password '" + auth.getValue() + "'");
+        if(!authenticate(uri, auth.getKey(), auth.getValue())) {
+            context.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("User cannot access the resource.").build());
         }
+    }
 
-        //context.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("User cannot access the resource.").build());
+    private boolean authenticate(UriInfo uri, String userName, String password) {
+        String path = uri.getPath();
+        logger.debug("STARTED, CHECKING " + path);
+        if(path.equalsIgnoreCase("authentication")) {
+            logger.debug("AUTHENTICATION METHOD");
+            return true; //this path is unprotected, just to authenticate users.
+        }
+        if(path.toLowerCase().startsWith("sensordata")) {
+            logger.debug("GOT TO SENSORDATAA METHOD");
+            if((userName.toLowerCase().equals(SENSOR_USER) && password.equals(SENSOR_PSWD)) || (userName.toLowerCase().equals(USER) && password.equals(PSWD))) {
+                return true;
+            }
+            return false;
+        }
+        if((userName.toLowerCase().equals(USER) && password.equals(PSWD)) || 1 == 1) { //here will go the main auth code. Always true atm
+            return true;
+        }
+        logger.debug(uri.getPath());
+        return false;
     }
 
     private Map.Entry<String,String> getUserNameAndPassword(MultivaluedMap<String, String> headers) {
@@ -62,6 +87,6 @@ public class AuthorizationFilter implements ContainerRequestFilter {
                 }
             }
         }
-        return null;
+        return new AbstractMap.SimpleEntry<>("", "");
     }
 }

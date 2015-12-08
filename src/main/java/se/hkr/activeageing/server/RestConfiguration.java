@@ -33,13 +33,13 @@ public class RestConfiguration extends Application {
         resources.add(CORSRequestFilter.class);
         resources.add(CORSResponseFilter.class);
 
-        //resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
-        //resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+        resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
+        resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
 
         return resources;
     }
 
-    /*
+
     public RestConfiguration() {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.2");
@@ -53,5 +53,5 @@ public class RestConfiguration extends Application {
         beanConfig.setScan(true);
         beanConfig.setTitle("ActiveAgeing - API");
     }
-    */
+
 }
