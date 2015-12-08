@@ -4,9 +4,7 @@ import io.swagger.jaxrs.config.BeanConfig;
 import se.hkr.activeageing.server.core.filters.AuthorizationFilter;
 import se.hkr.activeageing.server.core.filters.CORSRequestFilter;
 import se.hkr.activeageing.server.core.filters.CORSResponseFilter;
-import se.hkr.activeageing.server.resources.AccountRawResources;
-import se.hkr.activeageing.server.resources.AccountResources;
-import se.hkr.activeageing.server.resources.AuthenticationResources;
+import se.hkr.activeageing.server.resources.*;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -25,10 +23,10 @@ public class RestConfiguration extends Application {
 
         resources.add(AccountRawResources.class);
         resources.add(AccountResources.class);
-        //resources.add(ManufacturerResources.class);
+        resources.add(ManufacturerResources.class);
         //resources.add(TransporterResources.class);
         resources.add(AuthenticationResources.class);
-        //resources.add(ZipCodeResources.class);
+        resources.add(ZipCodeResources.class);
         resources.add(AuthorizationFilter.class);
         resources.add(CORSRequestFilter.class);
         resources.add(CORSResponseFilter.class);
