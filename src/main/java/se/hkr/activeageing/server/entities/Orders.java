@@ -38,14 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
     @NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id"),
-    @NamedQuery(name = "Orders.findByIdAndAccount", query = "SELECT o FROM Orders o WHERE o.id = :id and o.accountsId = :account"),
     @NamedQuery(name = "Orders.findByUpdated", query = "SELECT o FROM Orders o WHERE o.updated = :updated"),
     @NamedQuery(name = "Orders.findByCreated", query = "SELECT o FROM Orders o WHERE o.created = :created"),
     @NamedQuery(name = "Orders.findByDeleted", query = "SELECT o FROM Orders o WHERE o.deleted = :deleted"),
     @NamedQuery(name = "Orders.findByStatus", query = "SELECT o FROM Orders o WHERE o.status = :status"),
     @NamedQuery(name = "Orders.findByDelivered", query = "SELECT o FROM Orders o WHERE o.delivered = :delivered"),
-    @NamedQuery(name = "Orders.findByAccountId", query = "SELECT o FROM Orders o WHERE o.accountsId = :accountId")
-})
+    @NamedQuery(name = "Orders.findBySensors", query = "SELECT o FROM Orders o WHERE o.sensors = :sensors")})
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,6 +72,9 @@ public class Orders implements Serializable {
     @Column(name = "delivered")
     @Temporal(TemporalType.TIMESTAMP)
     private Date delivered;
+    @Size(max = 2000)
+    @Column(name = "sensors")
+    private String sensors;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordersId")
     private Collection<Orderitems> orderitemsCollection;
     @JoinColumn(name = "accounts_id", referencedColumnName = "id")
@@ -142,6 +143,14 @@ public class Orders implements Serializable {
         this.delivered = delivered;
     }
 
+    public String getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(String sensors) {
+        this.sensors = sensors;
+    }
+
     @XmlTransient
     public Collection<Orderitems> getOrderitemsCollection() {
         return orderitemsCollection;
@@ -151,7 +160,6 @@ public class Orders implements Serializable {
         this.orderitemsCollection = orderitemsCollection;
     }
 
-    @XmlTransient
     public Accounts getAccountsId() {
         return accountsId;
     }
@@ -182,7 +190,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Orders[ id=" + id + " ]";
+        return "entities.Orders[ id=" + id + " ]";
     }
     
 }

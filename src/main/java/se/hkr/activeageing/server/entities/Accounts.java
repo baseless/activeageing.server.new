@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Accounts a"),
     @NamedQuery(name = "Accounts.findById", query = "SELECT a FROM Accounts a WHERE a.id = :id"),
     @NamedQuery(name = "Accounts.findByUserName", query = "SELECT a FROM Accounts a WHERE a.userName = :userName"),
-        @NamedQuery(name = "Accounts.findConnectedToManufacturer", query = "select acc from Accounts acc inner join acc.manufacturersCollection man where man.id = :manId"),
     @NamedQuery(name = "Accounts.findByUpdated", query = "SELECT a FROM Accounts a WHERE a.updated = :updated"),
     @NamedQuery(name = "Accounts.findByCreated", query = "SELECT a FROM Accounts a WHERE a.created = :created"),
     @NamedQuery(name = "Accounts.findByDeleted", query = "SELECT a FROM Accounts a WHERE a.deleted = :deleted"),
@@ -95,15 +94,9 @@ public class Accounts implements Serializable {
     @Size(max = 200)
     @Column(name = "city")
     private String city;
-    /*
-    @Size(max = 50)
-    @Column(name = "role")
-    private String role;
-    */
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private AccountRole role;
-
+    private AccountRole role = AccountRole.CUSTOMER;
     @Size(max = 2000)
     @Column(name = "tags")
     private String tags;
@@ -251,16 +244,6 @@ public class Accounts implements Serializable {
         this.role = role;
     }
 
-    /*
-    * public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-    * */
-
     public String getTags() {
         return tags;
     }
@@ -326,7 +309,7 @@ public class Accounts implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Accounts[ id=" + id + " ]";
+        return "entities.Accounts[ id=" + id + " ]";
     }
     
 }

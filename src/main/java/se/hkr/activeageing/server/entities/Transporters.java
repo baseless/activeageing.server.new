@@ -74,13 +74,13 @@ public class Transporters implements Serializable {
     private String logoURL;
     @ManyToMany(mappedBy = "transportersCollection")
     private Collection<Manufacturers> manufacturersCollection;
-    @ManyToMany(mappedBy = "transportersCollection")
-    private Collection<Accounts> accountsCollection;
     @JoinTable(name = "transporters_delivers_to_zipcodes", joinColumns = {
         @JoinColumn(name = "transporters_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "zipcodes_id", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Zipcodes> zipcodesCollection;
+    @ManyToMany(mappedBy = "transportersCollection")
+    private Collection<Accounts> accountsCollection;
 
     public Transporters() {
     }
@@ -155,21 +155,21 @@ public class Transporters implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Accounts> getAccountsCollection() {
-        return accountsCollection;
-    }
-
-    public void setAccountsCollection(Collection<Accounts> accountsCollection) {
-        this.accountsCollection = accountsCollection;
-    }
-
-    @XmlTransient
     public Collection<Zipcodes> getZipcodesCollection() {
         return zipcodesCollection;
     }
 
     public void setZipcodesCollection(Collection<Zipcodes> zipcodesCollection) {
         this.zipcodesCollection = zipcodesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Accounts> getAccountsCollection() {
+        return accountsCollection;
+    }
+
+    public void setAccountsCollection(Collection<Accounts> accountsCollection) {
+        this.accountsCollection = accountsCollection;
     }
 
     @Override
@@ -194,7 +194,7 @@ public class Transporters implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Transporters[ id=" + id + " ]";
+        return "entities.Transporters[ id=" + id + " ]";
     }
     
 }

@@ -209,7 +209,7 @@ public class Manufacturers implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Manufacturers[ id=" + id + " ]";
+        return "entities.Manufacturers[ id=" + id + " ]";
     }
     
 }

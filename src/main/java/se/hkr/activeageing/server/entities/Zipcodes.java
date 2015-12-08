@@ -167,7 +167,7 @@ public class Zipcodes implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Zipcodes[ id=" + id + " ]";
+        return "entities.Zipcodes[ id=" + id + " ]";
     }
     
 }

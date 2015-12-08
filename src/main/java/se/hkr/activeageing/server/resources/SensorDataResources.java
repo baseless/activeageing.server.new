@@ -1,20 +1,21 @@
 package se.hkr.activeageing.server.resources;
 
 import io.swagger.annotations.*;
-import se.hkr.activeageing.server.entities.Manufacturers;
+import se.hkr.activeageing.server.boundary.SensorDataEngine;
 import se.hkr.activeageing.server.viewmodels.SensorDataViewModel;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
-import java.util.Optional;
 
 @Path("sensordata")
 @Stateless
 @Api(value = "SensorData")
 public class SensorDataResources {
+
+    @Inject
+    SensorDataEngine sensorEngine;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +39,11 @@ public class SensorDataResources {
     public Response add(
             @ApiParam(value = "SensorDataViewModel", required = true)
             SensorDataViewModel item) {
-            return Response.ok().entity(item).build();
+            boolean result = sensorEngine.insert(item);
+            if(result) {
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
     }
 }

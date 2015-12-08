@@ -14,16 +14,16 @@ public class SensorDataViewModel {
     private int alarmState;
     private int alarmTimeActive;
     private int batteryState;
-    private double batteryVoltage;
-    private Timestamp created;
-    private Timestamp gatewayTimestamp;
+    private String batteryVoltage;
+    private String created;
+    private String gatewayTimestamp;
     private int missed;
     private int missedAvg;
     private int missedState;
     private int nodeEventTimeOut;
     private int repeater;
     private IdHrefPair reportEventType;
-    private Timestamp reportTime;
+    private String reportTime;
     private Collection<SensorReportValue> reportValues;
     private UuidHrefPair sender;
     private int timeSinceConnection;
@@ -62,27 +62,27 @@ public class SensorDataViewModel {
         this.batteryState = batteryState;
     }
 
-    public double getBatteryVoltage() {
+    public String getBatteryVoltage() {
         return batteryVoltage;
     }
 
-    public void setBatteryVoltage(double batteryVoltage) {
+    public void setBatteryVoltage(String batteryVoltage) {
         this.batteryVoltage = batteryVoltage;
     }
 
-    public Timestamp getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public Timestamp getGatewayTimestamp() {
+    public String getGatewayTimestamp() {
         return gatewayTimestamp;
     }
 
-    public void setGatewayTimestamp(Timestamp gatewayTimestamp) {
+    public void setGatewayTimestamp(String gatewayTimestamp) {
         this.gatewayTimestamp = gatewayTimestamp;
     }
 
@@ -134,11 +134,11 @@ public class SensorDataViewModel {
         this.reportEventType = reportEventType;
     }
 
-    public Timestamp getReportTime() {
+    public String getReportTime() {
         return reportTime;
     }
 
-    public void setReportTime(Timestamp reportTime) {
+    public void setReportTime(String reportTime) {
         this.reportTime = reportTime;
     }
 

@@ -15,12 +15,12 @@
       <table id="6" parent="1" name="manufacturers_uses_transporters"/>
       <table id="7" parent="1" name="orderitems"/>
       <table id="8" parent="1" name="orders"/>
-      <table id="9" parent="1" name="preferences"/>
-      <table id="10" parent="1" name="products"/>
-      <table id="11" parent="1" name="sensordata"/>
-      <table id="12" parent="1" name="transporters"/>
-      <table id="13" parent="1" name="transporters_delivers_to_zipcodes"/>
-      <table id="14" parent="1" name="zipcodes"/>
+      <table id="9" parent="1" name="products"/>
+      <table id="10" parent="1" name="sensordata"/>
+      <table id="11" parent="1" name="transporters"/>
+      <table id="12" parent="1" name="transporters_delivers_to_zipcodes"/>
+      <table id="13" parent="1" name="zipcodes"/>
+      <table id="14" parent="1" name="sensordata_reportvalues"/>
       <column id="15" parent="2" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
@@ -50,6 +50,7 @@
         <data-type>varchar(200)</data-type>
       </column>
       <column id="22" parent="2" name="email">
+        <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
       <column id="23" parent="2" name="password">
@@ -73,417 +74,474 @@
       <column id="29" parent="2" name="zipCodes_id">
         <data-type>int(11)</data-type>
       </column>
-      <key id="30" parent="2" name="PRIMARY">
+      <column id="30" parent="2" name="tags">
+        <data-type>varchar(2000)</data-type>
+      </column>
+      <index id="31" parent="2" name="email_UNIQUE">
+        <columns>email</columns>
+        <unique>1</unique>
+      </index>
+      <index id="32" parent="2" name="userName_UNIQUE">
+        <columns>userName</columns>
+        <unique>1</unique>
+      </index>
+      <key id="33" parent="2" name="email_UNIQUE">
+        <columns>email</columns>
+        <underlying-index>email_UNIQUE</underlying-index>
+      </key>
+      <key id="34" parent="2" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="31" parent="2" name="fk_accounts_zipCodes1">
+      <key id="35" parent="2" name="userName_UNIQUE">
+        <columns>userName</columns>
+        <underlying-index>userName_UNIQUE</underlying-index>
+      </key>
+      <foreign-key id="36" parent="2" name="fk_accounts_zipCodes1">
         <columns>zipCodes_id</columns>
         <ref-key>zipcodes.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="32" parent="3" name="manufacturers_id">
+      <column id="37" parent="3" name="manufacturers_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="33" parent="3" name="accounts_id">
+      <column id="38" parent="3" name="accounts_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="34" parent="3" name="PRIMARY">
+      <key id="39" parent="3" name="PRIMARY">
         <columns>manufacturers_id
 accounts_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="35" parent="3" name="fk_manufacturers_has_accounts_accounts1">
+      <foreign-key id="40" parent="3" name="fk_manufacturers_has_accounts_accounts1">
         <columns>accounts_id</columns>
         <ref-key>accounts.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="36" parent="3" name="fk_manufacturers_has_accounts_manufacturers1">
+      <foreign-key id="41" parent="3" name="fk_manufacturers_has_accounts_manufacturers1">
         <columns>manufacturers_id</columns>
         <ref-key>manufacturers.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="37" parent="4" name="accounts_id">
+      <column id="42" parent="4" name="accounts_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="38" parent="4" name="transporters_id">
+      <column id="43" parent="4" name="transporters_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="39" parent="4" name="PRIMARY">
+      <key id="44" parent="4" name="PRIMARY">
         <columns>accounts_id
 transporters_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="40" parent="4" name="fk_accounts_has_transporters_accounts1">
+      <foreign-key id="45" parent="4" name="fk_accounts_has_transporters_accounts1">
         <columns>accounts_id</columns>
         <ref-key>accounts.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="41" parent="4" name="fk_accounts_has_transporters_transporters1">
+      <foreign-key id="46" parent="4" name="fk_accounts_has_transporters_transporters1">
         <columns>transporters_id</columns>
         <ref-key>transporters.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="42" parent="5" name="id">
+      <column id="47" parent="5" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="43" parent="5" name="name">
+      <column id="48" parent="5" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="44" parent="5" name="updated">
+      <column id="49" parent="5" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="45" parent="5" name="created">
+      <column id="50" parent="5" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="46" parent="5" name="deleted">
+      <column id="51" parent="5" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="47" parent="5" name="logoURL">
+      <column id="52" parent="5" name="logoURL">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="48" parent="5" name="description">
+      <column id="53" parent="5" name="description">
         <data-type>mediumtext</data-type>
       </column>
-      <key id="49" parent="5" name="PRIMARY">
+      <key id="54" parent="5" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="50" parent="6" name="manufacturers_id">
+      <column id="55" parent="6" name="manufacturers_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="51" parent="6" name="transporters_id">
+      <column id="56" parent="6" name="transporters_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="52" parent="6" name="PRIMARY">
+      <key id="57" parent="6" name="PRIMARY">
         <columns>manufacturers_id
 transporters_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="53" parent="6" name="fk_manufacturers_has_transporters_manufacturers1">
+      <foreign-key id="58" parent="6" name="fk_manufacturers_has_transporters_manufacturers1">
         <columns>manufacturers_id</columns>
         <ref-key>manufacturers.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="54" parent="6" name="fk_manufacturers_has_transporters_transporters1">
+      <foreign-key id="59" parent="6" name="fk_manufacturers_has_transporters_transporters1">
         <columns>transporters_id</columns>
         <ref-key>transporters.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="55" parent="7" name="id">
+      <column id="60" parent="7" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="56" parent="7" name="delivered">
+      <column id="61" parent="7" name="delivered">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <column id="57" parent="7" name="updated">
+      <column id="62" parent="7" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="58" parent="7" name="created">
+      <column id="63" parent="7" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="59" parent="7" name="deleted">
+      <column id="64" parent="7" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="60" parent="7" name="products_id">
+      <column id="65" parent="7" name="products_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="61" parent="7" name="orders_id">
+      <column id="66" parent="7" name="orders_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="62" parent="7" name="imageUrl">
-        <data-type>varchar(150)</data-type>
-      </column>
-      <key id="63" parent="7" name="PRIMARY">
+      <key id="67" parent="7" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="64" parent="7" name="fk_orderItems_orders1">
+      <foreign-key id="68" parent="7" name="fk_orderItems_orders1">
         <columns>orders_id</columns>
         <ref-key>orders.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="65" parent="7" name="fk_orderItems_products1">
+      <foreign-key id="69" parent="7" name="fk_orderItems_products1">
         <columns>products_id</columns>
         <ref-key>products.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="66" parent="8" name="id">
+      <column id="70" parent="8" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="67" parent="8" name="updated">
+      <column id="71" parent="8" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="68" parent="8" name="created">
+      <column id="72" parent="8" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="69" parent="8" name="deleted">
+      <column id="73" parent="8" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="70" parent="8" name="accounts_id">
+      <column id="74" parent="8" name="accounts_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="71" parent="8" name="status">
+      <column id="75" parent="8" name="status">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="72" parent="8" name="delivered">
+      <column id="76" parent="8" name="delivered">
         <data-type>datetime</data-type>
       </column>
-      <key id="73" parent="8" name="PRIMARY">
+      <column id="77" parent="8" name="sensors">
+        <data-type>varchar(2000)</data-type>
+      </column>
+      <key id="78" parent="8" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="74" parent="8" name="fk_orders_accounts2">
+      <foreign-key id="79" parent="8" name="fk_orders_accounts2">
         <columns>accounts_id</columns>
         <ref-key>accounts.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="75" parent="9" name="id">
+      <column id="80" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="76" parent="9" name="name">
+      <column id="81" parent="9" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="77" parent="9" name="updated">
+      <column id="82" parent="9" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="78" parent="9" name="created">
+      <column id="83" parent="9" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="79" parent="9" name="deleted">
+      <column id="84" parent="9" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="80" parent="9" name="accounts_id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <key id="81" parent="9" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="82" parent="9" name="fk_preferences_accounts1">
-        <columns>accounts_id</columns>
-        <ref-key>accounts.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="83" parent="10" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="84" parent="10" name="name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="85" parent="10" name="updated">
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-        <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
-      </column>
-      <column id="86" parent="10" name="created">
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-        <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
-      </column>
-      <column id="87" parent="10" name="deleted">
-        <mandatory>1</mandatory>
-        <data-type>tinyint(1)</data-type>
-      </column>
-      <column id="88" parent="10" name="description">
+      <column id="85" parent="9" name="description">
         <data-type>mediumtext</data-type>
       </column>
-      <column id="89" parent="10" name="price">
+      <column id="86" parent="9" name="price">
         <data-type>decimal(20,2)</data-type>
       </column>
-      <column id="90" parent="10" name="manufacturers_id">
+      <column id="87" parent="9" name="manufacturers_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="91" parent="10" name="PRIMARY">
+      <column id="88" parent="9" name="tags">
+        <data-type>varchar(2000)</data-type>
+      </column>
+      <column id="89" parent="9" name="imageUrl">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <key id="90" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="92" parent="10" name="fk_products_manufacturers1">
+      <foreign-key id="91" parent="9" name="fk_products_manufacturers1">
         <columns>manufacturers_id</columns>
         <ref-key>manufacturers.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="93" parent="11" name="id">
+      <column id="92" parent="10" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="94" parent="11" name="updated">
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-        <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
-      </column>
-      <column id="95" parent="11" name="created">
-        <mandatory>1</mandatory>
-        <data-type>timestamp</data-type>
-        <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
-      </column>
-      <column id="96" parent="11" name="deleted">
-        <mandatory>1</mandatory>
-        <data-type>tinyint(1)</data-type>
-      </column>
-      <column id="97" parent="11" name="identifier">
-        <mandatory>1</mandatory>
-        <data-type>varchar(200)</data-type>
-      </column>
-      <column id="98" parent="11" name="sensorType">
-        <data-type>varchar(50)</data-type>
-      </column>
-      <column id="99" parent="11" name="vehicles_id">
+      <column id="93" parent="10" name="alarmDefinition">
         <data-type>int(11)</data-type>
       </column>
-      <index id="100" parent="11" name="identifier_UNIQUE">
-        <columns>identifier</columns>
-        <unique>1</unique>
-      </index>
-      <key id="101" parent="11" name="identifier_UNIQUE">
-        <columns>identifier</columns>
-        <underlying-index>identifier_UNIQUE</underlying-index>
-      </key>
-      <key id="102" parent="11" name="PRIMARY">
+      <column id="94" parent="10" name="alarmState">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="95" parent="10" name="alarmTimeActive">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="96" parent="10" name="batteryState">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="97" parent="10" name="batteryVoltage">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="98" parent="10" name="created">
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;1999-01-01 00:00:01&apos;</default-expression>
+      </column>
+      <column id="99" parent="10" name="timeSinceConnection">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="100" parent="10" name="gatewayTimestamp">
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;1999-01-01 00:00:01&apos;</default-expression>
+      </column>
+      <column id="101" parent="10" name="missed">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="102" parent="10" name="missedAvg">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="103" parent="10" name="missedState">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="104" parent="10" name="nodeEventTimeOut">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="105" parent="10" name="repeater">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="106" parent="10" name="reportEventType_id">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="107" parent="10" name="reportEventType_href">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="108" parent="10" name="reportTime">
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;1999-01-01 00:00:01&apos;</default-expression>
+      </column>
+      <column id="109" parent="10" name="sender_uuid">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="110" parent="10" name="sender_href">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="111" parent="10" name="timeSinceConnectionState">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="112" parent="10" name="version">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="113" parent="10" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="103" parent="12" name="id">
+      <column id="114" parent="11" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="104" parent="12" name="updated">
+      <column id="115" parent="11" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="105" parent="12" name="created">
+      <column id="116" parent="11" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="106" parent="12" name="deleted">
+      <column id="117" parent="11" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="107" parent="12" name="name">
+      <column id="118" parent="11" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="108" parent="12" name="logoURL">
+      <column id="119" parent="11" name="logoURL">
         <data-type>varchar(200)</data-type>
       </column>
-      <key id="109" parent="12" name="PRIMARY">
+      <key id="120" parent="11" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="110" parent="13" name="transporters_id">
+      <column id="121" parent="12" name="transporters_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="111" parent="13" name="zipcodes_id">
+      <column id="122" parent="12" name="zipcodes_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="112" parent="13" name="PRIMARY">
+      <key id="123" parent="12" name="PRIMARY">
         <columns>transporters_id
 zipcodes_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="113" parent="13" name="fk_transporters_has_zipcodes_transporters1">
+      <foreign-key id="124" parent="12" name="fk_transporters_has_zipcodes_transporters1">
         <columns>transporters_id</columns>
         <ref-key>transporters.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="114" parent="13" name="fk_transporters_has_zipcodes_zipcodes1">
+      <foreign-key id="125" parent="12" name="fk_transporters_has_zipcodes_zipcodes1">
         <columns>zipcodes_id</columns>
         <ref-key>zipcodes.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="115" parent="14" name="id">
+      <column id="126" parent="13" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="116" parent="14" name="code">
+      <column id="127" parent="13" name="code">
         <mandatory>1</mandatory>
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="117" parent="14" name="updated">
+      <column id="128" parent="13" name="updated">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="118" parent="14" name="created">
+      <column id="129" parent="13" name="created">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;1999-01-01 00:00:00&apos;</default-expression>
       </column>
-      <column id="119" parent="14" name="deleted">
+      <column id="130" parent="13" name="deleted">
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <index id="120" parent="14" name="code">
+      <index id="131" parent="13" name="code">
         <columns>code</columns>
         <unique>1</unique>
       </index>
-      <key id="121" parent="14" name="code">
+      <key id="132" parent="13" name="code">
         <columns>code</columns>
         <underlying-index>code</underlying-index>
       </key>
-      <key id="122" parent="14" name="PRIMARY">
+      <key id="133" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
+      <column id="134" parent="14" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="135" parent="14" name="value">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="136" parent="14" name="dataUnitType_uuid">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="137" parent="14" name="dataUnitType_href">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="138" parent="14" name="gatewayTimestamp">
+        <data-type>timestamp</data-type>
+        <default-expression>&apos;1999-01-01 00:00:01&apos;</default-expression>
+      </column>
+      <column id="139" parent="14" name="sensor_uuid">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="140" parent="14" name="sensor_href">
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="141" parent="14" name="sensordata_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="142" parent="14" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="143" parent="14" name="fk_sensordata_reportvalues_sensordata1">
+        <columns>sensordata_id</columns>
+        <ref-key>sensordata.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
     </database-model>
   </data-source>
 </component>

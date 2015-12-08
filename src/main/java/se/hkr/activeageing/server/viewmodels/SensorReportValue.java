@@ -9,7 +9,7 @@ import java.util.Date;
 public class SensorReportValue {
     private String value;
     private UuidHrefPair dataUnitType;
-    private Timestamp gatewayTimestamp;
+    private String gatewayTimestamp;
     private UuidHrefPair sensor;
 
     public String getValue() {
@@ -28,11 +28,11 @@ public class SensorReportValue {
         this.dataUnitType = dataUnitType;
     }
 
-    public Date getGatewayTimestamp() {
+    public String getGatewayTimestamp() {
         return gatewayTimestamp;
     }
 
-    public void setGatewayTimestamp(Timestamp gatewayTimestamp) {
+    public void setGatewayTimestamp(String gatewayTimestamp) {
         this.gatewayTimestamp = gatewayTimestamp;
     }
 

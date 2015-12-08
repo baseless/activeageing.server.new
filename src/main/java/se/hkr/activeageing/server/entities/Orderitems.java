@@ -21,7 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,13 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Orderitems.findAll", query = "SELECT o FROM Orderitems o"),
     @NamedQuery(name = "Orderitems.findById", query = "SELECT o FROM Orderitems o WHERE o.id = :id"),
-    @NamedQuery(name = "Orderitems.findByOrderId", query = "SELECT o FROM Orderitems o WHERE o.ordersId = :orderId"),
-    @NamedQuery(name = "Orderitems.findByIdAndOrderId", query = "SELECT o FROM Orderitems o WHERE o.id = :id and o.ordersId = :orderId"),
     @NamedQuery(name = "Orderitems.findByDelivered", query = "SELECT o FROM Orderitems o WHERE o.delivered = :delivered"),
     @NamedQuery(name = "Orderitems.findByUpdated", query = "SELECT o FROM Orderitems o WHERE o.updated = :updated"),
     @NamedQuery(name = "Orderitems.findByCreated", query = "SELECT o FROM Orderitems o WHERE o.created = :created"),
-    @NamedQuery(name = "Orderitems.findByDeleted", query = "SELECT o FROM Orderitems o WHERE o.deleted = :deleted"),
-    @NamedQuery(name = "Orderitems.findByImageUrl", query = "SELECT o FROM Orderitems o WHERE o.imageUrl = :imageUrl")})
+    @NamedQuery(name = "Orderitems.findByDeleted", query = "SELECT o FROM Orderitems o WHERE o.deleted = :deleted")})
 public class Orderitems implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,9 +64,6 @@ public class Orderitems implements Serializable {
     @NotNull
     @Column(name = "deleted")
     private boolean deleted;
-    @Size(max = 150)
-    @Column(name = "imageUrl")
-    private String imageUrl;
     @JoinColumn(name = "orders_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Orders ordersId;
@@ -133,14 +126,6 @@ public class Orderitems implements Serializable {
         this.deleted = deleted;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public Orders getOrdersId() {
         return ordersId;
     }
@@ -179,7 +164,7 @@ public class Orderitems implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Orderitems[ id=" + id + " ]";
+        return "entities.Orderitems[ id=" + id + " ]";
     }
     
 }

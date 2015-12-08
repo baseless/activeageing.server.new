@@ -40,13 +40,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p"),
     @NamedQuery(name = "Products.findById", query = "SELECT p FROM Products p WHERE p.id = :id"),
-    @NamedQuery(name = "Products.findByIdAndManufacturer", query = "SELECT p FROM Products p WHERE p.id = :id AND p.manufacturersId = :manufacturer"),
     @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name"),
     @NamedQuery(name = "Products.findByUpdated", query = "SELECT p FROM Products p WHERE p.updated = :updated"),
     @NamedQuery(name = "Products.findByCreated", query = "SELECT p FROM Products p WHERE p.created = :created"),
     @NamedQuery(name = "Products.findByDeleted", query = "SELECT p FROM Products p WHERE p.deleted = :deleted"),
     @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price"),
-    @NamedQuery(name = "Products.findByTags", query = "SELECT p FROM Products p WHERE p.tags = :tags")})
+    @NamedQuery(name = "Products.findByTags", query = "SELECT p FROM Products p WHERE p.tags = :tags"),
+    @NamedQuery(name = "Products.findByImageUrl", query = "SELECT p FROM Products p WHERE p.imageUrl = :imageUrl")})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -84,6 +84,9 @@ public class Products implements Serializable {
     @Size(max = 2000)
     @Column(name = "tags")
     private String tags;
+    @Size(max = 500)
+    @Column(name = "imageUrl")
+    private String imageUrl;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productsId")
     private Collection<Orderitems> orderitemsCollection;
     @JoinColumn(name = "manufacturers_id", referencedColumnName = "id")
@@ -169,6 +172,14 @@ public class Products implements Serializable {
         this.tags = tags;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @XmlTransient
     public Collection<Orderitems> getOrderitemsCollection() {
         return orderitemsCollection;
@@ -208,7 +219,7 @@ public class Products implements Serializable {
 
     @Override
     public String toString() {
-        return "aa.entities.Products[ id=" + id + " ]";
+        return "entities.Products[ id=" + id + " ]";
     }
     
 }

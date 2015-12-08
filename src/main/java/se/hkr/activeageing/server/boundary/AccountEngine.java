@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.entities.Accounts;
 import se.hkr.activeageing.server.viewmodels.*;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
