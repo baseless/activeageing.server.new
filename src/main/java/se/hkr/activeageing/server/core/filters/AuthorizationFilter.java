@@ -10,6 +10,7 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
             logger.debug("Basic authentication included, username:'" + auth.getKey() + "', password:'" + auth.getValue() + "'");
         }
 
-        //    context.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("User cannot access the resource.").build());
+        //context.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("User cannot access the resource.").build());
     }
 
     private Map.Entry<String,String> getUserNameAndPassword(MultivaluedMap<String, String> headers) {

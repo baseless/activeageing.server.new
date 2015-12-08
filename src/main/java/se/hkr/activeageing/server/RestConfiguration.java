@@ -5,6 +5,7 @@ import se.hkr.activeageing.server.core.filters.AuthorizationFilter;
 import se.hkr.activeageing.server.core.filters.CORSRequestFilter;
 import se.hkr.activeageing.server.core.filters.CORSResponseFilter;
 import se.hkr.activeageing.server.resources.*;
+import se.hkr.activeageing.server.viewmodels.SensorDataViewModel;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -21,6 +22,7 @@ public class RestConfiguration extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet();
 
+        resources.add(SensorDataResources.class);
         resources.add(AccountRawResources.class);
         resources.add(AccountResources.class);
         resources.add(ManufacturerResources.class);
