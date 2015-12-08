@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import se.hkr.activeageing.server.boundary.AccountEngine;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.core.utility.ResponseHelper;
+import se.hkr.activeageing.server.entities.Accounts;
 import se.hkr.activeageing.server.viewmodels.AccountAuthenticateViewModel;
 import se.hkr.activeageing.server.viewmodels.AuthenticationResponseViewModel;
 
@@ -51,7 +52,10 @@ public class AuthenticationResources {
         if(result.isPresent()) {
             return response.getOkCommon(result.get());
         }
-        return response.postFailed("authentication failed");
+        AuthenticationResponseViewModel vm = new AuthenticationResponseViewModel();
+        vm.setId(0);
+        vm.setRole(Accounts.AccountRole.NOTSET);
+        return response.getOkCommon(vm);
     }
 
 }
