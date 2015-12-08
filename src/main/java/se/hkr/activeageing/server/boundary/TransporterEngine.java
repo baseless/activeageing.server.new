@@ -87,6 +87,7 @@ public class TransporterEngine extends AbstractEngine<Transporters> {
             transporter.setLogoURL(transporterViewModel.getLogoURL());
 
             super.edit(transporter);
+            result = true;
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }

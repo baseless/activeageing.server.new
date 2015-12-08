@@ -105,6 +105,7 @@ public class AccountEngine extends AbstractEngine<Accounts> {
             account.setTags(accountEditViewModel.getTags());
 
             super.edit(account);
+            result = true;
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }

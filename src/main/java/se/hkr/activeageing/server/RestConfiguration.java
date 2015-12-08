@@ -24,19 +24,20 @@ public class RestConfiguration extends Application {
         resources.add(AccountRawResources.class);
         resources.add(AccountResources.class);
         resources.add(ManufacturerResources.class);
-        //resources.add(TransporterResources.class);
+        resources.add(TransporterResources.class);
         resources.add(AuthenticationResources.class);
         resources.add(ZipCodeResources.class);
         resources.add(AuthorizationFilter.class);
         resources.add(CORSRequestFilter.class);
         resources.add(CORSResponseFilter.class);
 
-        resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
-        resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+        //resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
+        //resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
 
         return resources;
     }
 
+    /*
     public RestConfiguration() {
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion("1.0.2");
@@ -50,4 +51,5 @@ public class RestConfiguration extends Application {
         beanConfig.setScan(true);
         beanConfig.setTitle("ActiveAgeing - API");
     }
+    */
 }

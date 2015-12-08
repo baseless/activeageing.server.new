@@ -91,6 +91,7 @@ public class ManufacturerEngine extends AbstractEngine<Manufacturers> {
             manufacturer.setDescription(manufacturerViewModel.getDescription());
 
             super.edit(manufacturer);
+            result = true;
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }
