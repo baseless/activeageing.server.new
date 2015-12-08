@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author base
+ * @author Daniel Ryhle
  */
 @Entity
 @Table(name = "accounts")

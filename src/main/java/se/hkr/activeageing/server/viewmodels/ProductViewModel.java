@@ -10,6 +10,8 @@ public class ProductViewModel {
     private String name;
     private String description;
     private BigDecimal price;
+    private String tags;
+    private String imageUrl;
 
     public String getName() {
         return name;
@@ -33,5 +35,21 @@ public class ProductViewModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

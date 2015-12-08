@@ -71,6 +71,8 @@ public class ProductEngine extends AbstractEngine<Products> {
             product.setCreated(current);
             product.setUpdated(current);
             product.setDeleted(false);
+            product.setTags(productViewModel.getTags());
+            product.setImageUrl(productViewModel.getImageUrl());
             product.setManufacturersId(manufacturer);
 
             if(!(productViewModel.getName() == null && product.getName() !=null)) {
@@ -112,6 +114,8 @@ public class ProductEngine extends AbstractEngine<Products> {
                 if(!(productViewModel.getName() == null && product.getName() !=null)) {
                     product.setName(productViewModel.getName());
                 }
+                product.setTags(productViewModel.getTags());
+                product.setImageUrl(productViewModel.getImageUrl());
                 product.setDescription(productViewModel.getDescription());
                 product.setPrice(productViewModel.getPrice());
                 super.edit(product);

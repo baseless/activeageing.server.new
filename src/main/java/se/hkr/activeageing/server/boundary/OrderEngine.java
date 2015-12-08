@@ -73,7 +73,10 @@ public class OrderEngine extends AbstractEngine<Orders> {
             order.setCreated(current);
             order.setUpdated(current);
             order.setDeleted(false);
-            order.setDelivered(orderViewModel.getDelivered());
+            if(orderViewModel.getDelivered() != null) {
+                order.setDelivered(orderViewModel.getDelivered());
+            }
+            order.setSensors(orderViewModel.getSensors());
             order.setStatus(orderViewModel.getStatus());
             order.setAccountsId(account);
             em.persist(order);
@@ -106,7 +109,10 @@ public class OrderEngine extends AbstractEngine<Orders> {
             Orders order = super.find(id);
             if(order != null && order.getAccountsId().getId() == accountId) {
                 order.setUpdated(new Timestamp((new Date()).getTime()));
-                order.setDelivered(orderViewModel.getDelivered());
+                if(orderViewModel.getDelivered() != null) {
+                    order.setDelivered(orderViewModel.getDelivered());
+                }
+                order.setSensors(orderViewModel.getSensors());
                 order.setStatus(orderViewModel.getStatus());
                 super.edit(order);
                 result = true;
