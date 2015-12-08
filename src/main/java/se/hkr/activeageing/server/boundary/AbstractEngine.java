@@ -9,8 +9,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
- *
- * @author dANIEL ryHLE
+ * Abstract engine class.
+ * Created by Daniel Ryhle on 2015-12-07.
  */
 public abstract class AbstractEngine<T> {
 
