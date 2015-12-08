@@ -30,13 +30,31 @@ public class SensorDataResources {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Returns all available manufacturers.",
-            notes = "List all available manufacturers.")
+    @ApiOperation(value = "Returns all available sensorData.",
+            notes = "List all available sensorData.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully returned manufacturers."),
+            @ApiResponse(code = 200, message = "Successfully returned sensorData."),
             @ApiResponse(code = 400, message = "Return failed.") })
     public Response all() {
         return Response.ok().entity(new GenericEntity<Collection<Sensordata>>(sensorEngine.findAll()) {}).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Returns sensorData.",
+            notes = "Returns sensorData.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Return succeeded."),
+            @ApiResponse(code = 400, message = "Return failed.") })
+    public Response getSensorData(
+            @ApiParam(value = "the id of the sensorData.", required = true)
+            @PathParam("id") int id) {
+        Optional<Sensordata> sensorData = sensorEngine.getSensorData(id);
+        if(sensorData.isPresent()) {
+            return response.getOkCommon(sensorData.get());
+        }
+        return response.getFailed("Could not retrieve events list");
     }
 
     @GET
@@ -69,9 +87,9 @@ public class SensorDataResources {
     public Response add(
             @ApiParam(value = "SensorDataViewModel", required = true)
             SensorDataViewModel item) {
-            boolean result = sensorEngine.insert(item);
-            if(result) {
-                return Response.ok().build();
+            int result = sensorEngine.insert(item);
+            if(result != 0) {
+                return Response.status(Response.Status.CREATED).header("X-Location", "https://activeageing.se/resources/sensordata/" + result).build();
             } else {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }

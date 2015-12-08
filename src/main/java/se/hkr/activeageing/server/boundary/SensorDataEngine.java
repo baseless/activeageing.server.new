@@ -34,6 +34,17 @@ public class SensorDataEngine extends AbstractEngine<Sensordata>{
 
     public SensorDataEngine() { super(Sensordata.class); }
 
+    public Optional<Sensordata> getSensorData(int sensorDataId) {
+        Optional<Sensordata> result = Optional.empty();
+        try {
+            Sensordata sensorData = super.find(sensorDataId);
+            result = Optional.of(sensorData);
+        } catch(Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return result;
+    }
+
     public Optional<Collection<SensordataReportvalues>> allEvents(int sensorDataId) {
         Optional<Collection<SensordataReportvalues>> result = Optional.empty();
         try {
@@ -45,8 +56,8 @@ public class SensorDataEngine extends AbstractEngine<Sensordata>{
         return result;
     }
 
-    public boolean insert(SensorDataViewModel viewModel) {
-        boolean result = false;
+    public int insert(SensorDataViewModel viewModel) {
+        int result = 0;
         try {
             Sensordata sensorData = new Sensordata();
 
@@ -93,7 +104,7 @@ public class SensorDataEngine extends AbstractEngine<Sensordata>{
                 em.persist(report);
             }
 
-            result = true;
+            result = sensorData.getId();
 
         } catch(Exception e) {
             logger.warn(e.getMessage());
