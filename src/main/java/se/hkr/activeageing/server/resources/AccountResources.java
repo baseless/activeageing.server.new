@@ -7,9 +7,7 @@ import se.hkr.activeageing.server.boundary.OrderEngine;
 import se.hkr.activeageing.server.boundary.OrderItemEngine;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.core.utility.ResponseHelper;
-import se.hkr.activeageing.server.entities.Accounts;
-import se.hkr.activeageing.server.entities.Orderitems;
-import se.hkr.activeageing.server.entities.Orders;
+import se.hkr.activeageing.server.entities.*;
 import se.hkr.activeageing.server.viewmodels.*;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -402,5 +400,43 @@ public class AccountResources {
             return response.putOk();
         }
         return response.putFailed("Failed to modify order");
+    }
+
+    //-------------------------- MANUFACTURERS SUBRESOURCES -------------------------
+    @GET
+    @Path("{id}/manages/manufacturers")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Returns all manufacturers linked to the specified id.",
+            notes = "Returns all manufacturers linked to the specified id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Return succeeded."),
+            @ApiResponse(code = 400, message = "Returns failed.") })
+    public Response manufacturers_get(
+            @ApiParam(value = "the id of the user.", required = true)
+            @PathParam("id") int id) {
+        Optional<Collection<Manufacturers>> manufacturersResult = accountEngine.getAllManufacturers(id);
+        if(manufacturersResult.isPresent()) {
+            return response.getOkCommon(new GenericEntity<Collection<Manufacturers>>(manufacturersResult.get()){});
+        }
+        return response.getFailed();
+    }
+
+    //-------------------------- TRANSPORTERS SUBRESOURCES -------------------------
+    @GET
+    @Path("{id}/manages/transporters")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Returns all transporters linked to the specified id.",
+            notes = "Returns all transporters linked to the specified id.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Return succeeded."),
+            @ApiResponse(code = 400, message = "Returns failed.") })
+    public Response transporters_getAll(
+            @ApiParam(value = "the id of the user.", required = true)
+            @PathParam("id") int id) {
+        Optional<Collection<Transporters>> transportsResult = accountEngine.getAllTransporters(id);
+        if(transportsResult.isPresent()) {
+            return response.getOkCommon(new GenericEntity<Collection<Transporters>>(transportsResult.get()){});
+        }
+        return response.getFailed();
     }
 }

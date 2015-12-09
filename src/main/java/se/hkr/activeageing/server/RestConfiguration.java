@@ -1,6 +1,7 @@
 package se.hkr.activeageing.server;
 
 import io.swagger.jaxrs.config.BeanConfig;
+import se.hkr.activeageing.server.core.exceptions.RuntimeExceptionMapper;
 import se.hkr.activeageing.server.core.filters.AuthorizationFilter;
 import se.hkr.activeageing.server.core.filters.CORSRequestFilter;
 import se.hkr.activeageing.server.core.filters.CORSResponseFilter;
@@ -33,13 +34,11 @@ public class RestConfiguration extends Application {
         resources.add(AuthorizationFilter.class);
         resources.add(CORSRequestFilter.class);
         resources.add(CORSResponseFilter.class);
-
+        resources.add(RuntimeExceptionMapper.class);
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-
         return resources;
     }
-
 
     public RestConfiguration() {
         BeanConfig beanConfig = new BeanConfig();
@@ -54,5 +53,4 @@ public class RestConfiguration extends Application {
         beanConfig.setScan(true);
         beanConfig.setTitle("ActiveAgeing - API");
     }
-
 }

@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accounts.findByCity", query = "SELECT a FROM Accounts a WHERE a.city = :city"),
     @NamedQuery(name = "Accounts.findByRole", query = "SELECT a FROM Accounts a WHERE a.role = :role"),
     @NamedQuery(name = "Accounts.findByTags", query = "SELECT a FROM Accounts a WHERE a.tags = :tags")})
+
 public class Accounts implements Serializable {
 
     public enum AccountRole { GUEST, CUSTOMER, USER, ADMIN, NOTSET }

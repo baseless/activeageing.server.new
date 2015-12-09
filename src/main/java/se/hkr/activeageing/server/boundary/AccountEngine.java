@@ -3,6 +3,8 @@ package se.hkr.activeageing.server.boundary;
 import org.slf4j.Logger;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.entities.Accounts;
+import se.hkr.activeageing.server.entities.Manufacturers;
+import se.hkr.activeageing.server.entities.Transporters;
 import se.hkr.activeageing.server.viewmodels.*;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -178,6 +180,28 @@ public class AccountEngine extends AbstractEngine<Accounts> {
             result = 2;
         } catch(Exception e) {
             result = 1;
+            logger.warn(e.getMessage());
+        }
+        return result;
+    }
+
+    public Optional<Collection<Manufacturers>> getAllManufacturers(int id) {
+        Optional<Collection<Manufacturers>> result = Optional.empty();
+        try {
+            Collection<Manufacturers> manufacturers = em.createNamedQuery("Manufacturers.findByAccountId",Manufacturers.class).setParameter("accountId",id).getResultList();
+            result = Optional.of(manufacturers);
+        } catch(Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return result;
+    }
+
+    public Optional<Collection<Transporters>> getAllTransporters(int id) {
+        Optional<Collection<Transporters>> result = Optional.empty();
+        try {
+            Collection<Transporters> transporters = em.createNamedQuery("Transporters.findByAccountId",Transporters.class).setParameter("accountId",id).getResultList();
+            result = Optional.of(transporters);
+        } catch(Exception e) {
             logger.warn(e.getMessage());
         }
         return result;

@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Transporters.findAll", query = "SELECT t FROM Transporters t"),
     @NamedQuery(name = "Transporters.findById", query = "SELECT t FROM Transporters t WHERE t.id = :id"),
+    @NamedQuery(name = "Transporters.findByAccountId", query = "SELECT m FROM Transporters m INNER JOIN m.accountsCollection a WHERE a.id = :accountId"),
     @NamedQuery(name = "Transporters.findByUpdated", query = "SELECT t FROM Transporters t WHERE t.updated = :updated"),
     @NamedQuery(name = "Transporters.findByCreated", query = "SELECT t FROM Transporters t WHERE t.created = :created"),
     @NamedQuery(name = "Transporters.findByDeleted", query = "SELECT t FROM Transporters t WHERE t.deleted = :deleted"),
