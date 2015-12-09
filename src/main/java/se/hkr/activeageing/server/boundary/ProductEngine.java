@@ -31,18 +31,34 @@ public class ProductEngine extends AbstractEngine<Products> {
     public ProductEngine() { super(Products.class); }
 
     public Optional<Collection<Products>> all() {
-        return Optional.of(super.findAll());
+        return Optional.of(em.createNamedQuery("Products.findAll").getResultList());
     }
 
     public Optional<Collection<Products>> all(int manufacturerId) {
         Optional<Collection<Products>> result = Optional.empty();
         try {
-            Manufacturers manufacturer = em.find(Manufacturers.class, manufacturerId);
-            result = Optional.of(manufacturer.getProductsCollection());
+            //Manufacturers manufacturer = em.find(Manufacturers.class, manufacturerId);
+            Collection<Products> productList = em.createNamedQuery("Products.findByManufacturer", Products.class)
+                    .setParameter("manufacturerId", manufacturerId)
+                    .getResultList();
+            result = Optional.of(productList);
             logger.info("Got and responded containing product list for id '" + manufacturerId + "'");
         } catch(RuntimeException e) {
             logger.warn(e.getMessage());
         }
+        return result;
+    }
+
+    public Optional<Products> get(int id) {
+        Optional<Products> result = Optional.empty();
+        try {
+            Products product = em.find(Products.class, id);
+            result = Optional.of(product);
+            logger.info("Got and responded containing product with id '" + product.getId() + "'");
+        } catch(RuntimeException e) {
+            logger.warn(e.getMessage());
+        }
+
         return result;
     }
 

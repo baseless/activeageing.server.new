@@ -22,6 +22,7 @@ public class RestConfiguration extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet();
 
+        resources.add(ProductResources.class);
         resources.add(SensorDataResources.class);
         resources.add(AccountRawResources.class);
         resources.add(AccountResources.class);
