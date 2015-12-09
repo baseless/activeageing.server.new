@@ -120,6 +120,7 @@ public class Orders implements Serializable {
         this.created = created;
     }
 
+    @XmlTransient
     public boolean getDeleted() {
         return deleted;
     }

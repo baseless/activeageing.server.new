@@ -165,6 +165,7 @@ public class Accounts implements Serializable {
         this.created = created;
     }
 
+    @XmlTransient
     public boolean getDeleted() {
         return deleted;
     }
@@ -197,6 +198,7 @@ public class Accounts implements Serializable {
         this.email = email;
     }
 
+    @XmlTransient
     public String getPassword() {
         return password;
     }

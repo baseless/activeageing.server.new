@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -120,6 +121,7 @@ public class Orderitems implements Serializable {
         this.created = created;
     }
 
+    @XmlTransient
     public boolean getDeleted() {
         return deleted;
     }

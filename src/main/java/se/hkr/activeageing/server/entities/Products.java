@@ -142,6 +142,7 @@ public class Products implements Serializable {
         this.created = created;
     }
 
+    @XmlTransient
     public boolean getDeleted() {
         return deleted;
     }

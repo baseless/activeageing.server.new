@@ -119,6 +119,7 @@ public class Zipcodes implements Serializable {
         this.created = created;
     }
 
+    @XmlTransient
     public boolean getDeleted() {
         return deleted;
     }
