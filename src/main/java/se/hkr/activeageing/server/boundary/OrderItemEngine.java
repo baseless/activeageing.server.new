@@ -129,6 +129,6 @@ public class OrderItemEngine extends AbstractEngine<Orderitems> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return em;
     }
 }

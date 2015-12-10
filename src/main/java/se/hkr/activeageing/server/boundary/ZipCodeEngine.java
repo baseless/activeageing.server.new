@@ -33,17 +33,14 @@ public class ZipCodeEngine extends AbstractEngine<Zipcodes> {
     }
 
     public Optional<Collection<Zipcodes>> all() {
-        //return Optional.of(super.findAll());
-        return Optional.of(em.createNamedQuery("Zipcodes.findAll").getResultList());
+        return Optional.of(super.findAll());
     }
 
     public Optional<Zipcodes> get(int id) {
         Optional<Zipcodes> result = Optional.empty();
         try {
-            //result = Optional.of(super.find(id));
-            Zipcodes zipcode = em.find(Zipcodes.class, id);
-            result = Optional.of(zipcode);
-            logger.info("Got and responded containing product with id '" + zipcode.getId() + "'");
+            result = Optional.of(super.find(id));
+            logger.info("Got and responded containing product with id '" + id + "'");
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }
@@ -98,6 +95,6 @@ public class ZipCodeEngine extends AbstractEngine<Zipcodes> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return em;
     }
 }

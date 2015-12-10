@@ -96,6 +96,6 @@ public class TransportManagerEngine extends AbstractEngine<Accounts> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return em;
     }
 }

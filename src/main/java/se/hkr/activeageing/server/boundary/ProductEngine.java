@@ -37,7 +37,6 @@ public class ProductEngine extends AbstractEngine<Products> {
     public Optional<Collection<Products>> all(int manufacturerId) {
         Optional<Collection<Products>> result = Optional.empty();
         try {
-            //Manufacturers manufacturer = em.find(Manufacturers.class, manufacturerId);
             Collection<Products> productList = em.createNamedQuery("Products.findByManufacturer", Products.class)
                     .setParameter("manufacturerId", manufacturerId)
                     .getResultList();
@@ -52,9 +51,8 @@ public class ProductEngine extends AbstractEngine<Products> {
     public Optional<Products> get(int id) {
         Optional<Products> result = Optional.empty();
         try {
-            Products product = em.find(Products.class, id);
-            result = Optional.of(product);
-            logger.info("Got and responded containing product with id '" + product.getId() + "'");
+            result = Optional.of(super.find(id));
+            logger.info("Got and responded containing product with id '" + id + "'");
         } catch(RuntimeException e) {
             logger.warn(e.getMessage());
         }
@@ -145,6 +143,6 @@ public class ProductEngine extends AbstractEngine<Products> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return em;
     }
 }

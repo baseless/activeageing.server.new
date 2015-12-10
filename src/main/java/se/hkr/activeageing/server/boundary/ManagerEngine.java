@@ -74,6 +74,6 @@ public class ManagerEngine extends AbstractEngine<Accounts> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return null;
+        return em;
     }
 }
