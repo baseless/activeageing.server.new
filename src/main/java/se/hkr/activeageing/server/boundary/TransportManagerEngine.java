@@ -7,6 +7,7 @@ import se.hkr.activeageing.server.entities.Manufacturers;
 import se.hkr.activeageing.server.entities.Transporters;
 import se.hkr.activeageing.server.viewmodels.ManagerViewModel;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,7 @@ import java.util.Optional;
 /**
  * Created by Daniel & Emil on 2015-11-13.
  */
+@Stateless
 public class TransportManagerEngine extends AbstractEngine<Accounts> {
 
     @PersistenceContext(unitName = "DefaultJtaUnit")

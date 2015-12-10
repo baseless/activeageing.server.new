@@ -4,9 +4,12 @@ import org.slf4j.Logger;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
 import se.hkr.activeageing.server.entities.Transporters;
 import se.hkr.activeageing.server.viewmodels.TransporterViewModel;
+
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TransactionRequiredException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
@@ -16,6 +19,7 @@ import java.util.Optional;
  * Transporter engine viewModel
  * Created by Emil Eider & Daniel Ryhle on 2015-11-10.
  */
+@Stateless
 public class TransporterEngine extends AbstractEngine<Transporters> {
 
     @PersistenceContext(unitName = "DefaultJtaUnit")
@@ -44,15 +48,13 @@ public class TransporterEngine extends AbstractEngine<Transporters> {
     public int add(TransporterViewModel transporterViewModel) {
         int result = 0;
         try {
+            logger.debug("NAME = " + transporterViewModel.getName());
             Transporters transporter = new Transporters();
             Timestamp current = new Timestamp((new Date()).getTime());
             transporter.setCreated(current);
             transporter.setUpdated(current);
             transporter.setDeleted(false);
-
-            if(!(transporterViewModel.getName() == null && transporter.getName() != null)) {
-                transporter.setName(transporterViewModel.getName());
-            }
+            transporter.setName(transporterViewModel.getName());
             transporter.setLogoURL(transporterViewModel.getLogoURL());
 
             em.persist(transporter);
@@ -60,6 +62,7 @@ public class TransporterEngine extends AbstractEngine<Transporters> {
             result = transporter.getId();
         } catch(Exception e) {
             logger.warn(e.getMessage());
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -88,7 +91,7 @@ public class TransporterEngine extends AbstractEngine<Transporters> {
 
             super.edit(transporter);
             result = true;
-        } catch(Exception e) {
+        } catch(TransactionRequiredException e) {
             logger.warn(e.getMessage());
         }
         return result;
