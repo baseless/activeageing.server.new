@@ -33,10 +33,10 @@ public class ManagerEngine extends AbstractEngine<Accounts> {
     public Optional<Collection<Accounts>> all(int manufacturerId) {
         Optional<Collection<Accounts>> result = Optional.empty();
         try {
-            Manufacturers manufacturer = em.find(Manufacturers.class, manufacturerId);
-            result = Optional.of(manufacturer.getAccountsCollection());
+            Collection<Accounts> accountList = em.createNamedQuery("Accounts.findByManufacturerId", Accounts.class).setParameter("manufacturerId", manufacturerId).getResultList();
+            result = Optional.of(accountList);
             logger.info("Got and responded containing account list for id '" + manufacturerId + "'");
-        } catch(RuntimeException e) {
+        } catch(Exception e) {
             logger.warn(e.getMessage());
         }
         return result;
@@ -51,7 +51,7 @@ public class ManagerEngine extends AbstractEngine<Accounts> {
             super.edit(account);
             result = true;
             logger.info("Added account with id '" + account.getId() + "' as manager for id '" + manufacturerId + "'");
-        } catch(RuntimeException e) {
+        } catch(Exception e) {
             logger.warn(e.getMessage());
         }
         return result;
@@ -66,8 +66,9 @@ public class ManagerEngine extends AbstractEngine<Accounts> {
             super.edit(account);
             result = true;
             logger.info("Removed account with id '" + account.getId() + "' as manager for id '" + manufacturerId + "'");
-        } catch(RuntimeException e) {
+        } catch(Exception e) {
             logger.warn(e.getMessage());
+            throw new RuntimeException(e);
         }
         return result;
     }

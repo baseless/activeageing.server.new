@@ -39,8 +39,10 @@ public class OrderEngine extends AbstractEngine<Orders> {
     public Optional<Collection<Orders>> all(int accountId) {
         Optional<Collection<Orders>> result = Optional.empty();
         try {
-            Accounts account = em.find(Accounts.class, accountId);
-            result = Optional.of(account.getOrdersCollection());
+            Collection<Orders> orders = em.createNamedQuery("Orders.findByAccountId", Orders.class)
+                    .setParameter("accountId", accountId)
+                    .getResultList();
+            result = Optional.of(orders);
             logger.info("Got and responded containing Order list for id '" + accountId + "'");
         } catch(RuntimeException e) {
             logger.warn(e.getMessage());

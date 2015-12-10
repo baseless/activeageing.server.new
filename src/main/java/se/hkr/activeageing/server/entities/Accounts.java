@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accounts.findAll", query = "SELECT a FROM Accounts a"),
     @NamedQuery(name = "Accounts.findById", query = "SELECT a FROM Accounts a WHERE a.id = :id"),
     @NamedQuery(name = "Accounts.findByUserName", query = "SELECT a FROM Accounts a WHERE a.userName = :userName"),
+    @NamedQuery(name = "Accounts.findByTransporterId", query = "SELECT a FROM Accounts a JOIN a.transportersCollection t WHERE t.id = :transporterId"),
+    @NamedQuery(name = "Accounts.findByManufacturerId", query = "SELECT a FROM Accounts a JOIN a.manufacturersCollection m WHERE m.id = :manufacturerId"),
     @NamedQuery(name = "Accounts.findByUpdated", query = "SELECT a FROM Accounts a WHERE a.updated = :updated"),
     @NamedQuery(name = "Accounts.findByCreated", query = "SELECT a FROM Accounts a WHERE a.created = :created"),
     @NamedQuery(name = "Accounts.findByDeleted", query = "SELECT a FROM Accounts a WHERE a.deleted = :deleted"),
@@ -104,12 +106,12 @@ public class Accounts implements Serializable {
     @JoinTable(name = "accounts_manages_manufacturers", joinColumns = {
         @JoinColumn(name = "accounts_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "manufacturers_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Manufacturers> manufacturersCollection;
     @JoinTable(name = "accounts_manages_transporters", joinColumns = {
         @JoinColumn(name = "accounts_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "transporters_id", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Collection<Transporters> transportersCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountsId")
     private Collection<Orders> ordersCollection;
