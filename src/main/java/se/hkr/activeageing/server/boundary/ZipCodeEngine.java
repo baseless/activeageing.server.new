@@ -40,7 +40,10 @@ public class ZipCodeEngine extends AbstractEngine<Zipcodes> {
     public Optional<Zipcodes> get(int id) {
         Optional<Zipcodes> result = Optional.empty();
         try {
-            result = Optional.of(super.find(id));
+            //result = Optional.of(super.find(id));
+            Zipcodes zipcode = em.find(Zipcodes.class, id);
+            result = Optional.of(zipcode);
+            logger.info("Got and responded containing product with id '" + zipcode.getId() + "'");
         } catch(Exception e) {
             logger.warn(e.getMessage());
         }
