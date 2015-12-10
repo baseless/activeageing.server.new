@@ -98,7 +98,7 @@ public class ZipCodeResources {
             ZipCodeViewModel item) {
         int resultId = zipCodeEngine.add(item);
         if(resultId != 0) {
-            return response.postOk();
+            return response.postOk("id", String.valueOf(resultId));
         }
         return response.postFailed("Failed to add ZipCode");
     }

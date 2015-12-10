@@ -33,7 +33,8 @@ public class ZipCodeEngine extends AbstractEngine<Zipcodes> {
     }
 
     public Optional<Collection<Zipcodes>> all() {
-        return Optional.of(super.findAll());
+        //return Optional.of(super.findAll());
+        return Optional.of(em.createNamedQuery("Zipcodes.findAll").getResultList());
     }
 
     public Optional<Zipcodes> get(int id) {
