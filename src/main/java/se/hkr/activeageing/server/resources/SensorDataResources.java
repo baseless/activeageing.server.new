@@ -75,7 +75,6 @@ public class SensorDataResources {
         return response.getFailed("Could not retrieve events list");
     }
 
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,5 +92,47 @@ public class SensorDataResources {
             } else {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
+    }
+
+    @GET
+    @Path("/bydate/{date}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Returns all available sensor data from specified date to current date.",
+            notes = "Returns all available sensor data from specified date to current date.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Return succeeded."),
+            @ApiResponse(code = 400, message = "Return failed.") })
+    public Response sort_date(
+            @ApiParam(value = "the specified date.", required = true)
+            @PathParam("date") String date) {
+
+        Optional<Collection<Sensordata>> sensordata = sensorEngine.sortByDate(date);
+
+        if(sensordata.isPresent()) {
+            return response.getOk(new GenericEntity<Collection<Sensordata>>(sensordata.get()) {});
+        }
+        return response.getFailed("Could not retrieve sensor list");
+    }
+
+    @GET
+    @Path("/bydate/{fromdate}/{todate}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Returns all available sensor data from specified date to current date.",
+            notes = "Returns all available sensor data from specified date to current date.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Return succeeded."),
+            @ApiResponse(code = 400, message = "Return failed.") })
+    public Response sort_date(
+            @ApiParam(value = "from the specified date.", required = true)
+            @PathParam("fromdate") String fromDate,
+            @ApiParam(value = "to the specified date.", required = true)
+            @PathParam("todate") String toDate) {
+
+        Optional<Collection<Sensordata>> sensordata = sensorEngine.sortByDate(fromDate,toDate);
+
+        if(sensordata.isPresent()) {
+            return response.getOk(new GenericEntity<Collection<Sensordata>>(sensordata.get()) {});
+        }
+        return response.getFailed("Could not retrieve sensor list");
     }
 }

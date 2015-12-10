@@ -56,7 +56,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sensordata.findBySenderUuid", query = "SELECT s FROM Sensordata s WHERE s.senderUuid = :senderUuid"),
     @NamedQuery(name = "Sensordata.findBySenderHref", query = "SELECT s FROM Sensordata s WHERE s.senderHref = :senderHref"),
     @NamedQuery(name = "Sensordata.findByTimeSinceConnectionState", query = "SELECT s FROM Sensordata s WHERE s.timeSinceConnectionState = :timeSinceConnectionState"),
-    @NamedQuery(name = "Sensordata.findByVersion", query = "SELECT s FROM Sensordata s WHERE s.version = :version")})
+    @NamedQuery(name = "Sensordata.findByVersion", query = "SELECT s FROM Sensordata s WHERE s.version = :version"),
+        @NamedQuery(name = "Sensordata.sortByDate", query = "SELECT s FROM Sensordata s WHERE s.created > :date"),
+        @NamedQuery(name = "Sensordata.sortByFromDateToDate", query = "SELECT s FROM Sensordata s WHERE s.created > :fromdate AND s.created < :todate")}
+)
 public class Sensordata implements Serializable {
 
     private static final long serialVersionUID = 1L;

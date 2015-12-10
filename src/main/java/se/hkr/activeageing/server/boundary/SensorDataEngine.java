@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -124,6 +125,39 @@ public class SensorDataEngine extends AbstractEngine<Sensordata>{
         }
         return new Timestamp(timeInLong);
     }
+
+    public Optional<Collection<Sensordata>> sortByDate(String date){
+
+        Timestamp tm = Timestamp.valueOf(date);
+        Optional<Collection<Sensordata>> result = Optional.empty();
+        try {
+            List<Sensordata> sensordata = em.createNamedQuery("Sensordata.sortByDate", Sensordata.class)
+                    .setParameter("date", tm)
+                    .getResultList();
+            result = Optional.of(sensordata);
+        } catch(Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return result;
+    }
+
+    public Optional<Collection<Sensordata>> sortByDate(String fromDate, String toDate){
+
+        Timestamp fromDateTm = Timestamp.valueOf(fromDate);
+        Timestamp toDateTm = Timestamp.valueOf(toDate);
+        Optional<Collection<Sensordata>> result = Optional.empty();
+        try {
+            List<Sensordata> sensordata = em.createNamedQuery("Sensordata.sortByFromDateToDate", Sensordata.class)
+                    .setParameter("fromdate", fromDateTm)
+                    .setParameter("todate", toDateTm)
+                    .getResultList();
+            result = Optional.of(sensordata);
+        } catch(Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return result;
+    }
+
 
     @Override
     protected EntityManager getEntityManager() {
