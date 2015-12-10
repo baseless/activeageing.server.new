@@ -117,8 +117,8 @@ public class SensorDataResources {
     @GET
     @Path("/bydate/{fromdate}/{todate}")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Returns all available sensor data from specified date to current date.",
-            notes = "Returns all available sensor data from specified date to current date.")
+    @ApiOperation(value = "Returns all available sensor data from specified date to another specified date.",
+            notes = "Returns all available sensor data from specified date to another specified date..")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Return succeeded."),
             @ApiResponse(code = 400, message = "Return failed.") })
