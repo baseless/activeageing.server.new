@@ -35,12 +35,12 @@ public class OrderItemEngine extends AbstractEngine<Orderitems> {
         super(Orderitems.class);
     }
 
-    public Optional<Collection<Orderitems>> all(int parentId, int accountId) {
+    public Optional<Collection<Orderitems>> all(int orderId) {
         Optional<Collection<Orderitems>> result = Optional.empty();
         try {
-            Collection<Orderitems> ordersItems = em.createNamedQuery("Orderitems.findByOrderId", Orderitems.class).setParameter("orderId", parentId).getResultList();
+            Collection<Orderitems> ordersItems = em.createNamedQuery("Orderitems.findByOrderId", Orderitems.class).setParameter("orderId", orderId).getResultList();
             result = Optional.of(ordersItems);
-            logger.info("Got and responded containing Order list for id '" + accountId + "'");
+            logger.info("Got and responded containing Order list for id '" + orderId + "'");
         } catch(RuntimeException e) {
             logger.error(e.getMessage());
         }

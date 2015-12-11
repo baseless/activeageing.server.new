@@ -295,21 +295,19 @@ public class AccountResources {
     @GET
     @Path("{id}/orders/{orderId}/items")
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Returns an order list",
-            notes = "Returns an order list.")
+    @ApiOperation(value = "Returns an order items list",
+            notes = "Returns an order items list.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return successed."),
+            @ApiResponse(code = 200, message = "Returned successfully."),
             @ApiResponse(code = 400, message = "Return failed.") })
-    public Response orders_orderitems_All(
-            @ApiParam(value = "the id of the user.", required = true)
-            @PathParam("id") int accountId,
-            @ApiParam(value = "the id of the order.", required = true)
-            @PathParam("orderId") int orderId) {
-        Optional<Collection<Orderitems>> orders = orderItemEngine.all(orderId, accountId);
+    public Response allOrderItemsForOrder(@ApiParam(value = "the id of the order you like to view items for.", required = true) @PathParam("orderId") int orderId) {
+        Optional<Collection<Orderitems>> orders = orderItemEngine.all(orderId);
         if(orders.isPresent()) {
-            return response.getOk(new GenericEntity<Collection<Orderitems>>(orders.get()) {});
+            return Response.ok().entity(new GenericEntity<Collection<Orderitems>>(orders.get()) {}).build();
         }
-        return response.getFailed("Could not retrieve order list");
+        else {
+            return response.getFailed("Failed to retrieve items for order");
+        }
     }
 
     @GET
