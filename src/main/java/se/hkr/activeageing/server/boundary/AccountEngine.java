@@ -2,6 +2,7 @@ package se.hkr.activeageing.server.boundary;
 
 import org.slf4j.Logger;
 import se.hkr.activeageing.server.core.qualifiers.DefaultLogger;
+import se.hkr.activeageing.server.core.utility.PasswordHasher;
 import se.hkr.activeageing.server.entities.Accounts;
 import se.hkr.activeageing.server.entities.Manufacturers;
 import se.hkr.activeageing.server.entities.Transporters;
@@ -58,7 +59,7 @@ public class AccountEngine extends AbstractEngine<Accounts> {
             account.setFirstName(accountAddViewModel.getFirstName());
             account.setLastName(accountAddViewModel.getLastName());
             account.setEmail(accountAddViewModel.getEmail());
-            account.setPassword(accountAddViewModel.getPassword()); //todo: hash
+            account.setPassword(PasswordHasher.Hash256(accountAddViewModel.getPassword())); //hashed!
             account.setPhoneNumber(accountAddViewModel.getPhoneNumber());
             account.setStreetName(accountAddViewModel.getStreetName());
             account.setStreetNumber(accountAddViewModel.getStreetNumber());

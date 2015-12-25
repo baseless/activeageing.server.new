@@ -8,7 +8,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class PasswordHasher {
 
-    public static String Hash256(String text, String salt) {
+    public static String Hash256(String text) {
+        String salt = "1234567890";
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("SHA-256");
